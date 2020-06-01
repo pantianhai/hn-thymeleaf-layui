@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : aaa
-Source Server Version : 50717
-Source Host           : localhost:3306
+Source Server         : 本地测试
+Source Server Version : 80019
+Source Host           : 127.0.0.1:3306
 Source Database       : teacher
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 80019
 File Encoding         : 65001
 
-Date: 2020-05-29 16:46:06
+Date: 2020-06-01 15:57:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,9 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_dept`;
 CREATE TABLE `tbl_dept` (
-  `dept_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `dept_id` int NOT NULL AUTO_INCREMENT COMMENT '部门id',
   `dept_name` varchar(30) DEFAULT '' COMMENT '部门名称',
-  `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
   `status` char(1) DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
@@ -30,7 +30,7 @@ CREATE TABLE `tbl_dept` (
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门表';
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门表';
 
 -- ----------------------------
 -- Records of tbl_dept
@@ -47,10 +47,10 @@ INSERT INTO `tbl_dept` VALUES ('106', '市场部门', '6', '0', '0', 'admin', '2
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_menu`;
 CREATE TABLE `tbl_menu` (
-  `menu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menu_id` int NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(50) NOT NULL COMMENT '菜单名称',
-  `parent_id` int(11) DEFAULT '0' COMMENT '父菜单ID',
-  `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
+  `parent_id` int DEFAULT '0' COMMENT '父菜单ID',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
   `url` varchar(200) DEFAULT '#' COMMENT '请求地址',
   `menu_type` char(1) DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
   `visible` char(1) DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
@@ -62,7 +62,7 @@ CREATE TABLE `tbl_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1019 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=1021 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of tbl_menu
@@ -101,10 +101,10 @@ INSERT INTO `tbl_menu` VALUES ('1018', '部门删除', '103', '4', '#', 'F', '0'
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_role`;
 CREATE TABLE `tbl_role` (
-  `role_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` int NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(30) NOT NULL COMMENT '角色名称',
   `role_key` varchar(100) NOT NULL COMMENT '角色权限字符串',
-  `role_sort` int(4) NOT NULL COMMENT '显示顺序',
+  `role_sort` int NOT NULL COMMENT '显示顺序',
   `status` char(1) NOT NULL COMMENT '角色状态（0正常 1停用）',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
@@ -113,22 +113,22 @@ CREATE TABLE `tbl_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色信息表';
 
 -- ----------------------------
 -- Records of tbl_role
 -- ----------------------------
 INSERT INTO `tbl_role` VALUES ('1', '管理员', 'admin', '1', '0', '0', 'admin', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00', '管理员');
-INSERT INTO `tbl_role` VALUES ('2', '普通角色', 'common', '2', '0', '0', 'admin', '2018-03-16 11:33:00', 'admin', '2019-08-07 16:24:20', '普通角色');
-INSERT INTO `tbl_role` VALUES ('3', '测试角色', 'ceshi', '3', '0', '0', 'admin', '2019-12-31 15:40:32', 'admin', '2019-12-31 15:42:14', '');
+INSERT INTO `tbl_role` VALUES ('3', '测试开发', 'ceshi', '2', '0', '0', 'admin', '2019-12-31 15:40:32', 'admin', '2019-12-31 15:42:14', '');
+INSERT INTO `tbl_role` VALUES ('4', '粉丝后援会', 'juemei', '4', '0', '0', '', null, '', null, '');
 
 -- ----------------------------
 -- Table structure for `tbl_role_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_role_menu`;
 CREATE TABLE `tbl_role_menu` (
-  `role_id` int(11) NOT NULL COMMENT '角色ID',
-  `menu_id` int(11) NOT NULL COMMENT '菜单ID',
+  `role_id` int NOT NULL COMMENT '角色ID',
+  `menu_id` int NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`,`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
 
@@ -175,8 +175,8 @@ INSERT INTO `tbl_role_menu` VALUES ('2', '1003');
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE `tbl_user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `dept_id` int(11) DEFAULT NULL COMMENT '部门ID',
+  `user_id` int NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `dept_id` int DEFAULT NULL COMMENT '部门ID',
   `login_name` varchar(30) NOT NULL COMMENT '登录账号',
   `user_name` varchar(30) NOT NULL COMMENT '用户昵称',
   `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
@@ -193,23 +193,24 @@ CREATE TABLE `tbl_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of tbl_user
 -- ----------------------------
 INSERT INTO `tbl_user` VALUES ('1', '101', 'admin', '豆豆', '86521760@qq.com', '18538062907', '0', null, '280111d7f4fa14ff76606fe1ffa4d782', '9ed6610c-6132-4d0c-a8a4-5011080ba754', '0', '0', 'admin', '2018-03-16 11:33:00', 'admin', '2020-01-01 21:15:13', '管理员');
-INSERT INTO `tbl_user` VALUES ('3', '101', 'chenjian', '陈建', 'chenjian3822515@163.com', '18538062906', '0', null, 'f4a77e1417b03bf32d4b33a137282093', '4bd21f', '0', '0', 'admin', '2019-04-18 11:48:31', 'admin', '2019-08-07 12:31:29', '');
+INSERT INTO `tbl_user` VALUES ('3', '101', 'chenjian', '陈建', '1111111111@qq.com', '13854545556', '0', null, '123', '4bd21f', '0', '0', 'admin', '2019-04-18 11:48:31', 'admin', '2019-08-07 12:31:29', '');
 INSERT INTO `tbl_user` VALUES ('4', '101', 'root2', '张三', '86587432@qq.com', '18538062999', '0', null, '3512abbc9c7c8daa4c3560e79f8d1858', '568629be-6ca4-46eb-baaf-f6fea4c23d74', '0', '0', 'admin', '2019-08-07 15:46:18', 'admin', '2019-08-07 16:24:29', '');
-INSERT INTO `tbl_user` VALUES ('5', '103', 'lihang', 'lihang', '7987954@qq.com', '17947934435', '0', null, '6d70551312e8167cb363020454a3ba03', 'f06b8d', '0', '0', 'admin', '2019-12-31 15:38:14', 'admin', '2020-01-01 21:02:55', '');
+INSERT INTO `tbl_user` VALUES ('6', '101', 'liulingzi', '刘令姿', '12334411111@qq.com', '13678765432', '0', null, '8b4b9840bc6f7b98f4194866aeee5343', 'e0d04555-4bb6-4af2-8c93-e425e7c926e4', '0', '0', '', null, '', null, '');
+INSERT INTO `tbl_user` VALUES ('7', '101', 'lin', '县里', '12398765656@qq.com', '13767898765', '0', null, '19c13b909f3d7de1a21d0dfc2c57fce1', 'f8105bda-fa92-47ca-abf4-ef2f74be68a2', '0', '0', '', null, '', null, '');
 
 -- ----------------------------
 -- Table structure for `tbl_user_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_user_role`;
 CREATE TABLE `tbl_user_role` (
-  `user_id` int(11) NOT NULL COMMENT '用户ID',
-  `role_id` int(11) NOT NULL COMMENT '角色ID',
+  `user_id` int NOT NULL COMMENT '用户ID',
+  `role_id` int NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户和角色关联表';
 
@@ -228,10 +229,10 @@ INSERT INTO `tbl_user_role` VALUES ('5', '3');
 -- ----------------------------
 DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `salt` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userid` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `salt` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
